@@ -1,0 +1,35 @@
+parameters:
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  oliverde8\ComfyBundle\Resolver\ScopeResolverInterface: '@oliverde8.comfy_bundle.scope_resolver.locales'
+
+  oliverde8.comfy_bundle.scope_resolver.locales:
+    class: oliverde8\ComfyBundle\Resolver\LocaleScopeResolver
+    arguments:
+      $defaultScope: 'default'
+      $scopes: {'default': ""}
+
+  oliverde8\ComfyBundle\Storage\StorageInterface:
+    class: oliverde8\ComfyBundle\Storage\DoctrineEntityStorage
+
+  oliverde8\ComfyBundle\Manager\ConfigManagerInterface:
+    class: oliverde8\ComfyBundle\Manager\ConfigManager
+
+
+  oliverde8\ComfyBundle\Command\:
+    resource: "../../Command/*"
+
+  oliverde8.comfy.test_config.config1:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "test/test1"
+      $name: "test.test1"
+      $description: "test.test1_desc"
+      $defaultValue: "Toto 1"
+    tags:
+      - "comfy.config"

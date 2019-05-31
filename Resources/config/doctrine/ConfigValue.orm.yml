@@ -1,0 +1,16 @@
+oliverde8\ComfyBundle\Entity\ConfigValue:
+  type: entity
+  table: comfy_config_value
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    path:
+      type: string
+      length: 255
+    scope:
+      type: string
+      length: 255
+    value:
+      type: text
