@@ -1,7 +1,7 @@
 <?php
 /**
- * @author    Wide Agency Dev Team
- * @category  kit-v2-symfony
+ * @author    oliverde8<oliverde8@gmail.com>
+ * @category  @category  oliverde8/ComfyBundle
  */
 
 namespace oliverde8\ComfyBundle\Resolver;

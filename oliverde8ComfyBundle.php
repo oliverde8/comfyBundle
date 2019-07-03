@@ -1,6 +1,6 @@
 <?php
 /**
- * @author    Wide Agency Dev Team
+ * @author    oliverde8<oliverde8@gmail.com>
  * @category  kit-v2-symfony
  */
 

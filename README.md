@@ -21,7 +21,33 @@ like it to differ between locales.
 
 ### Install Bundle
 
+```sh
+composer require oliverde/comfy-bundle
+```
+
+
+
 ### Create configs
+
+Declare a new service as fallows
+
+```yml
+  my_vendo.my_bundle.comfy.config1:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "test/test1"
+      $name: "test.test1"
+      $description: "test.test1_desc"
+      $defaultValue: "Toto 1"
+    tags:
+      - "comfy.config"
+```
+
+The service id, will allow you to inject the configuration into the services you need. 
+
+The path is used for the admin interface, as well as the name & description. 
+
+Finally you config has a default value.
 
 ### Use the configs
 
@@ -31,6 +57,8 @@ In order to use the configs, get and set values you will need to simply inject t
 <?php
 public function __construct(\oliverde8\ComfyBundle\Model\ConfigInterface $myConfig);
 ```
+
+Autowiring will not work here, 
 
 You can now use it to get the config value.
 
@@ -59,8 +87,8 @@ we can also set values the same way.
 
 ```php
 <?php
-$this->myConfig->get($newValue);
-$this->myConfig->get($newValue, "default/en_GB");
+$this->myConfig->set($newValue);
+$this->myConfig->set($newValue, "default/en_GB");
 ``` 
 
 ## Advance usages
@@ -75,9 +103,10 @@ $this->myConfig->get($newValue, "default/en_GB");
 
 - [ ] Add composer.json file
 - [ ] Add command line to see configs & scopes
-- [ ] Add caching per scope.
+- [ ] Add caching per scope. For doctrine add configs to make it possible.
 - [ ] Add form builders for each config type.
 - [ ] Add more basic config types.
 - [ ] Add more documentation.
-- [ ] Add sonta support.
+- [ ] Add sonata support.
+- [ ] Add easy admin support.
 - [ ] Add additional storage solutions. 
