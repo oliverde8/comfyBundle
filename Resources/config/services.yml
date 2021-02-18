@@ -24,7 +24,7 @@ services:
   oliverde8\ComfyBundle\Command\:
     resource: "../../Command/*"
 
-  oliverde8.comfy.test_config.config1:
+  my_vendor.my_bundle.comfy.config1:
     class: oliverde8\ComfyBundle\Model\TextConfig
     arguments:
       $path: "test/test1"
