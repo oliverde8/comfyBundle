@@ -27,9 +27,19 @@ services:
   my_vendor.my_bundle.comfy.config1:
     class: oliverde8\ComfyBundle\Model\TextConfig
     arguments:
-      $path: "test/test1"
-      $name: "test.test1"
+      $path: "dummy/level1/level2/config1"
+      $name: "Dummy Config #1"
       $description: "test.test1_desc"
+      $defaultValue: "Toto 1"
+    tags:
+      - "comfy.config"
+
+  my_vendor.my_bundle.comfy.config2:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/level1/level2/config2"
+      $name: "Dummy Config #2"
+      $description: "test.test2_desc"
       $defaultValue: "Toto 1"
     tags:
       - "comfy.config"

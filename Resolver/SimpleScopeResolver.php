@@ -69,7 +69,7 @@ class SimpleScopeResolver implements ScopeResolverInterface
     }
 
     /**
-     * Get scope this scope inherits from. Retursn null if scope don't inherit from any other scope.
+     * Get scope this scope inherits from. Returns null if scope don't inherit from any other scope.
      *
      * @param string|null $scope
      *
@@ -84,7 +84,8 @@ class SimpleScopeResolver implements ScopeResolverInterface
             return null;
         }
 
-        return $parts[count($parts) - 1];
+        array_pop($parts);
+        return implode('/', $parts);
     }
 
     public function getScopeTree() : array

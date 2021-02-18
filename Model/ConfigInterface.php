@@ -90,4 +90,12 @@ interface ConfigInterface
      */
     public function get(string $scope = null);
 
+    /**
+     * Check if config inherits its value for a given scope.
+     *
+     * @param string|null $scope
+     *
+     * @return mixed
+     */
+    public function doesInherit(string $scope = null);
 }

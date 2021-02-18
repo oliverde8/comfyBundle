@@ -38,11 +38,13 @@ class DoctrineEntityStorage implements StorageInterface
             $this->entities[$scope][$configPath]->setPath($configPath)
                 ->setScope($scope);
         }
-
-
         $this->entities[$scope][$configPath]->setValue($value);
 
-        $this->entityManager->persist($this->entities[$scope][$configPath]);
+        if (is_null($value)) {
+            $this->entityManager->remove($this->entities[$scope][$configPath]);
+        } else {
+            $this->entityManager->persist($this->entities[$scope][$configPath]);
+        }
     }
 
     public function load(array $scopes): array

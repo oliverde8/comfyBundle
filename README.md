@@ -131,9 +131,8 @@ class MyScopePass implements CompilerPassInterface
 
 - [ ] Add composer.json file
 - [ ] Add command line to see configs & scopes
-- [ ] Add caching per scope. For doctrine add configs to make it possible.
 - [ ] Add form builders for each config type.
 - [ ] Add more basic config types.
 - [ ] Add more documentation.
-- [ ] Add easy admin support.
+- [ ] Add caching per scope. For doctrine add configs to make it possible.
 - [ ] Add documentation on how not to use doctrine.

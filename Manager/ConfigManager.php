@@ -30,6 +30,9 @@ class ConfigManager implements ConfigManagerInterface
     /** @var array */
     protected $configValues;
 
+    /** @var array */
+    protected $configParentInheritance;
+
     /**
      * ConfigManager constructor.
      *
@@ -52,8 +55,15 @@ class ConfigManager implements ConfigManagerInterface
         $this->validatePath($configPath);
         $scope = $this->validateScope($scope);
 
-        $this->configValues[$scope][$configPath] = $value;
-
+        if (!is_null($value)) {
+            $this->configValues[$scope][$configPath] = $value;
+            $this->configParentInheritance[$scope][$configPath] = false;
+        } else {
+            $this->scopeResolver->inherits($scope);
+            $previousScope = $this->scopeResolver->getScope($this->scopeResolver->inherits($scope));
+            $this->configValues[$scope][$configPath] = $this->configValues[$previousScope][$configPath];
+            $this->configParentInheritance[$scope][$configPath] = true;
+        }
 
         $this->storage->save($configPath, $scope, $value);
 
@@ -69,6 +79,17 @@ class ConfigManager implements ConfigManagerInterface
         $scope = $this->validateScope($scope);
 
         return $this->configValues[$scope][$configPath];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function doesInhertit(string $configPath, string $scope = null): bool
+    {
+        $this->validatePath($configPath);
+        $scope = $this->validateScope($scope);
+
+        return $this->configParentInheritance[$scope][$configPath];
     }
 
     /**
@@ -123,11 +144,20 @@ class ConfigManager implements ConfigManagerInterface
         } while(!is_null($lastScope));
 
         $values = $this->storage->load($scopes);
+        $previousScope = null;
 
         foreach (array_reverse($scopes) as $scope) {
             foreach ($this->configs as $config) {
-                $this->configValues[$scope][$config->getPath()] = AssociativeArray::getFromKey($values, [$scope, $config->getPath()], $config->getDefaultValue());
+                if (is_null($previousScope)) {
+                    $previousValue = $config->getDefaultValue();
+                } else {
+                    $previousValue = $this->configValues[$previousScope][$config->getPath()];
+                }
+
+                $this->configParentInheritance[$scope][$config->getPath()] = !AssociativeArray::checkKeyExist($values, [$scope, $config->getPath()]);
+                $this->configValues[$scope][$config->getPath()] = AssociativeArray::getFromKey($values, [$scope, $config->getPath()], $previousValue);
             }
+            $previousScope = $scope;
         }
     }
 }

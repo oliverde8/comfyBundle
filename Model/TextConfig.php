@@ -151,6 +151,13 @@ class TextConfig implements ConfigInterface
     {
         return $this->deserialize($this->confgManager->get($this->path, $scope));
     }
+    /**
+     * @inheritDoc
+     */
+    public function doesInherit(string $scope = null)
+    {
+        return $this->confgManager->doesInhertit($this->path, $scope);
+    }
 
     /**
      * Serialize value to save it in Database.

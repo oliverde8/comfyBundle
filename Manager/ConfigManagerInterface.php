@@ -41,6 +41,16 @@ interface ConfigManagerInterface
      */
     public function get(string $configPath, string $scope = null): string;
 
+
+    /**
+     * Check if for a certain scope the value is inherited or if it's setted at that particular scope.
+     *
+     * @param string $configPath
+     * @param string $scope
+     * @return bool
+     */
+    public function doesInhertit(string $configPath, string $scope = null): bool;
+
     /**
      * Get all config values of a certain scope.
      *
