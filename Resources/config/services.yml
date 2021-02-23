@@ -20,9 +20,15 @@ services:
   oliverde8\ComfyBundle\Manager\ConfigManagerInterface:
     class: oliverde8\ComfyBundle\Manager\ConfigManager
 
+  oliverde8\ComfyBundle\Manager\ConfigDisplayManager:
+    class: oliverde8\ComfyBundle\Manager\ConfigDisplayManager
+
 
   oliverde8\ComfyBundle\Command\:
     resource: "../../Command/*"
+
+  oliverde8\ComfyBundle\Form\:
+    resource: "../../Form/*"
 
   my_vendor.my_bundle.comfy.config1:
     class: oliverde8\ComfyBundle\Model\TextConfig

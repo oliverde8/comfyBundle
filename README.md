@@ -4,19 +4,13 @@ This bundle introduces all the necessary logic in order to save administrable co
 other storage solution.
 
 Configurations are stored by paths which allows them to be grouped when creating an interface to edit them. 
+See Easy Admin integration [here](https://github.com/oliverde8/comfyEasyAdminBundle)
 
-It also allows saving multiple values per config key, these are called scopes. By default a `default` scope and
-a scope per locale is created, locale scopes inherits values of the default scope. 
+It also allows saving multiple values per config key, these are called **scopes**. By default there is a `default` 
+scope and a scope per locale, locale scopes inherits values of the default scope. Scopes have levels. For example 
+"French for France" inherits values from "French". So both "French for Canada" and "French for France" can be configured at once.
 
-Comfy loves:heart: symfony 4.4+ with it's autowiring. 
-
-## Principle
-
-There is one service per configuration, so to get a config we need inject that configuration service, 
-so to fetch multiple configurations we need to inject multiple services.   
-
-**Scope** allows configurations to easily differ; for example if the title of the website is configurable we would
-like it to differ between locales. 
+Each config is a unique service that can be autowired; yes Comfy loves:heart: symfony 4.4+ with it's autowiring. 
 
 ## Usage
 
@@ -44,10 +38,12 @@ Declare a new service as fallows
       - "comfy.config"
 ```
 
-The service id, will allow you to inject the configuration into the services you need. Thanks to autowiring this is trivial. 
-The path is used for the admin interface, as well as the name & description. 
+The **service id**, will allow you to inject the configuration into the services you need. 
+Thanks to autowiring this is trivial by just calling the argument `$myBundleConfig1`
 
-Finally you config has a default value.
+The **path** as well as the name & description are used for the admin interfaces.
+
+Finally, each config has a default value.
 
 ### Use the configs
 
@@ -59,7 +55,7 @@ public function __construct(\oliverde8\ComfyBundle\Model\ConfigInterface $myBund
 ```
 
 With autowiring the service id `my_vendor.my_bundle.comfy.config1` becomes `myBundleConfig1`. In order for this to work 
-well please respect the service naming pattern. 
+please respect the service naming pattern. 
 
 You can now use it to get the config value:
 ```php
@@ -81,7 +77,7 @@ $this->myConfig->get("default/en_GB");
 So even if we are on a "french" page the config will be the `en_gb` one; 
 
 > If no value is set for a certain scope then the value of the parent scope will be returned. in the example above it's 
-the `default`.
+the `en` and if none is defined for `en` then it's the `default`.
 
 we can also set values the same way; either for the current scope, or a particular scope.
 
@@ -95,43 +91,25 @@ $this->myConfig->set($newValue, "default/en_GB");
 
 ### Creating your own scope inheritance tree
 
-In most cases you will wish to create your own scopes, in order todo this you need to create a new Compiler Pass. 
-
-**Example :**
-
-```php
-class MyScopePass implements CompilerPassInterface
-{
-
-    /**
-     * You can modify the container here before it is dumped to PHP code.
-     */
-    public function process(ContainerBuilder $container)
-    {
-        $scopes = [
-            "default" => "Default scope label",
-            "default/french" => "French websites configuration",
-            "default/canadian" => "Canadian websites configuration",
-        ];
-
-        $definition = $container->getDefinition('oliverde8.comfy_bundle.scope_resolver.locales');
-        $definition->setArgument('$scopes', $scopes);
-        $definition->setArgument('$defaultScope', "default");
-    }
-}
-```
+[See here](docs/scope-resolver.md)
 
 ### Creating your own config type
 
+:construction:
+
 ### Validating configs values
 
+:construction:
+
 ### Alternative storage solution
+
+:construction:
 
 ## TODO
 
 - [ ] Add composer.json file
 - [ ] Add command line to see configs & scopes
-- [ ] Add form builders for each config type.
+- [ ] Add form builders for each config type.(At the moment everything is "text")
 - [ ] Add more basic config types.
 - [ ] Add more documentation.
 - [ ] Add caching per scope. For doctrine add configs to make it possible.
