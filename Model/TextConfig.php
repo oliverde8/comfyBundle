@@ -54,7 +54,7 @@ class TextConfig implements ConfigInterface
         ValidatorInterface $validator,
         string $path,
         string $name,
-        string $description,
+        string $description = "",
         int $scope = PHP_INT_MAX,
         ?string $defaultValue = null,
         bool $isHidden = false
@@ -68,7 +68,6 @@ class TextConfig implements ConfigInterface
         $this->isHidden = $isHidden;
         $this->defaultValue = $defaultValue;
     }
-
 
     /**
      * @inheritDoc

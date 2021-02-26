@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  oliverde8.comfy_bundle.form_type_provider.default:
+    class: oliverde8\ComfyBundle\Resolver\Form\SimpleFormProvider
+    arguments:
+      $configType: 'oliverde8\ComfyBundle\Model\ConfigInterface'
+      $formType: 'Symfony\Component\Form\Extension\Core\Type\TextType'
+    tags:
+      - "comfy.form_provider"

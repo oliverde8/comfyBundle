@@ -6,13 +6,7 @@ services:
     autoconfigure: true
     public: true
 
-  oliverde8\ComfyBundle\Resolver\ScopeResolverInterface: '@oliverde8.comfy_bundle.scope_resolver.locales'
 
-  oliverde8.comfy_bundle.scope_resolver.locales:
-    class: oliverde8\ComfyBundle\Resolver\LocaleScopeResolver
-    arguments:
-      $defaultScope: 'default'
-      $scopes: {'default': ""}
 
   oliverde8\ComfyBundle\Storage\StorageInterface:
     class: oliverde8\ComfyBundle\Storage\DoctrineEntityStorage
@@ -29,23 +23,3 @@ services:
 
   oliverde8\ComfyBundle\Form\:
     resource: "../../Form/*"
-
-  my_vendor.my_bundle.comfy.config1:
-    class: oliverde8\ComfyBundle\Model\TextConfig
-    arguments:
-      $path: "dummy/level1/level2/config1"
-      $name: "Dummy Config #1"
-      $description: "test.test1_desc"
-      $defaultValue: "Toto 1"
-    tags:
-      - "comfy.config"
-
-  my_vendor.my_bundle.comfy.config2:
-    class: oliverde8\ComfyBundle\Model\TextConfig
-    arguments:
-      $path: "dummy/level1/level2/config2"
-      $name: "Dummy Config #2"
-      $description: "test.test2_desc"
-      $defaultValue: "Toto 1"
-    tags:
-      - "comfy.config"

@@ -109,8 +109,13 @@ $this->myConfig->set($newValue, "default/en_GB");
 
 - [ ] Add composer.json file
 - [ ] Add command line to see configs & scopes
-- [ ] Add form builders for each config type.(At the moment everything is "text")
+- [ ] Form builder should take into account config scope limitation
 - [ ] Add more basic config types.
-- [ ] Add more documentation.
-- [ ] Add caching per scope. For doctrine add configs to make it possible.
-- [ ] Add documentation on how not to use doctrine.
+    - [ ] Url
+    - [ ] Boolean (Yes/No)
+    - [ ] Other
+- [ ] Add documentation.
+    - [ ] Creating custom configs
+    - [ ] Adding validation to configs.
+    - [ ] How not to use doctrine but alternative solution.
+- [ ] Add caching per scope. Do this by creating a layered storage so that when we read we first read on the cacheStorage then the other solution.

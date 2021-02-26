@@ -73,7 +73,7 @@ class ConfigManager implements ConfigManagerInterface
     /**
      * @inheritDoc
      */
-    public function get(string $configPath, string $scope = null): string
+    public function get(string $configPath, string $scope = null): ?string
     {
         $this->validatePath($configPath);
         $scope = $this->validateScope($scope);

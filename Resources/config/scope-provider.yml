@@ -1,0 +1,15 @@
+parameters:
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  oliverde8\ComfyBundle\Resolver\ScopeResolverInterface: '@oliverde8.comfy_bundle.scope_resolver.locales'
+
+  oliverde8.comfy_bundle.scope_resolver.locales:
+    class: oliverde8\ComfyBundle\Resolver\LocaleScopeResolver
+    arguments:
+      $defaultScope: 'default'
+      $scopes: {'default': ""}

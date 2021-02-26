@@ -1,0 +1,107 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  myvendor.mybundle.comfy.generic.name:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/generic/name"
+      $name: "Website's name"
+      $description: "The name of the website to display."
+      $defaultValue: "My Super duper website"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.generic.url:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/generic/url"
+      $name: "Website's url"
+      $description: "The url of the website, this is used for emails sent by cron jobs."
+      $defaultValue: "https://test.com"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.generic.keywords:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/generic/keywords"
+      $name: "Keywords"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.services.pim.url:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/services/pim/url"
+      $name: "Url to the pim"
+      $description: "Url of the pim so that we can synchronise the products with the PIM."
+      $defaultValue: ""
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.services.erp.url:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/services/erp/url"
+      $name: "Url to the ERP"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.services.erp.crm:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/services/crm/url"
+      $name: "Url to the CRM"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.catalog.product.toto:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/catalog/product/toto"
+      $name: "TOTO Config"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.catalog.price.toto:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/catalog/price/toto"
+      $name: "TOTO Config"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.catalog.category.toto:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/catalog/category/toto"
+      $name: "TOTO Config"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.catalog.search.toto:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/catalog/search/toto"
+      $name: "TOTO Config"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.user_accounts.fields.toto:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/user_accounts/fields/toto"
+      $name: "TOTO Config"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.user_accounts.address.toto:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/user_accounts/address/toto"
+      $name: "TOTO Config"
+    tags:
+      - "comfy.config"

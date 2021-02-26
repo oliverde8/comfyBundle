@@ -21,6 +21,10 @@ class oliverde8ComfyExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('scope-provider.yml');
         $loader->load('services.yml');
+        $loader->load('form-type-provider.yml');
+
+        $loader->load('dummy-configs.yml');
     }
 }

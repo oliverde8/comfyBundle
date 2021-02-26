@@ -39,7 +39,7 @@ interface ConfigManagerInterface
      * @throws UnknownConfigPathException When config path is not known.
      * @throws UnknownScopeException When config path is not known.
      */
-    public function get(string $configPath, string $scope = null): string;
+    public function get(string $configPath, string $scope = null): ?string;
 
 
     /**

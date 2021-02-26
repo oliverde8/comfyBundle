@@ -4,6 +4,7 @@ namespace oliverde8\ComfyBundle\Form\Type;
 
 use oliverde8\ComfyBundle\Manager\ConfigDisplayManager;
 use oliverde8\ComfyBundle\Model\ConfigInterface;
+use oliverde8\ComfyBundle\Resolver\FormTypeProviderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,13 +18,17 @@ class ConfigsForm extends AbstractType
 {
     protected ConfigDisplayManager $configDisplayManager;
 
+    /** @var FormTypeProviderInterface[] */
+    protected array $formTypeProviders;
+
     /**
      * ConfigsForm constructor.
      * @param ConfigDisplayManager $configDisplayManager
      */
-    public function __construct(ConfigDisplayManager $configDisplayManager)
+    public function __construct(ConfigDisplayManager $configDisplayManager, array $formTypeProviders)
     {
         $this->configDisplayManager = $configDisplayManager;
+        $this->formTypeProviders = $formTypeProviders;
     }
 
 
@@ -48,15 +53,9 @@ class ConfigsForm extends AbstractType
 
     protected function buildFormForConfig(FormInterface $form, ConfigInterface $config, ?string $scope)
     {
-        $form->add(
-            "value:" . $this->configDisplayManager->getConfigHtmlName($config),
-            TextType::class,
-            [
-                'label' => $config->getName(),
-                'help' => $this->getHelpHtml($config, $scope),
-                'data' => $config->get($scope),
-            ],
-        );
+        $name = "value:" . $this->configDisplayManager->getConfigHtmlName($config);
+        $this->getFormProvider($config)->addTypeToForm($name, $config, $form, $scope);
+
         $form->add(
             "use_parent:" . $this->configDisplayManager->getConfigHtmlName($config),
             CheckboxType::class,
@@ -68,14 +67,12 @@ class ConfigsForm extends AbstractType
         );
     }
 
-    protected function getHelpHtml(ConfigInterface $config, ?string $scope)
+    protected function getFormProvider(ConfigInterface $config)
     {
-        $helpMessage = $config->getDescription();
-
-        if ($config->getDefaultValue() != $config->get($scope) && is_string($config->getDefaultValue())) {
-            $helpMessage .= "</br>Default Value: " . $config->getDefaultValue();
+        foreach ($this->formTypeProviders as $formTypeProvider) {
+            if ($formTypeProvider->supports($config)) {
+                return $formTypeProvider;
+            }
         }
-
-        return $helpMessage;
     }
 }
