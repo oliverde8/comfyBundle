@@ -4,6 +4,15 @@ services:
     autoconfigure: true
     public: true
 
+
+  oliverde8.comfy_bundle.form_type_provider.yes_no:
+    class: oliverde8\ComfyBundle\Resolver\Form\YesNoFormProvider
+    arguments:
+      $configType: 'oliverde8\ComfyBundle\Model\YesNoConfig'
+      $formType: 'Symfony\Component\Form\Extension\Core\Type\ChoiceType'
+    tags:
+      - "comfy.form_provider"
+
   oliverde8.comfy_bundle.form_type_provider.default:
     class: oliverde8\ComfyBundle\Resolver\Form\SimpleFormProvider
     arguments:

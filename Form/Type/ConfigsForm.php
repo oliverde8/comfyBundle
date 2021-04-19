@@ -10,9 +10,12 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ConfigsForm extends AbstractType
 {
@@ -20,6 +23,11 @@ class ConfigsForm extends AbstractType
 
     /** @var FormTypeProviderInterface[] */
     protected array $formTypeProviders;
+
+    protected $scope;
+
+    /** @var ConfigInterface[] */
+    protected $configs;
 
     /**
      * ConfigsForm constructor.
@@ -40,15 +48,66 @@ class ConfigsForm extends AbstractType
             $data = $event->getData();
             $form = $event->getForm();
 
-            $scope = $data['scope'] ?? null;
-            $configs = $data['configs'] ?? [];
+            $this->scope = $data['scope'] ?? null;;
+            $this->configs = $data['configs'] ?? [];
 
-            foreach ($configs as $config) {
+            foreach ($this->configs as $config) {
                 if (!is_array($config)) {
-                    $this->buildFormForConfig($form, $config, $scope);
+                    $this->buildFormForConfig($form, $config, $this->scope);
                 }
             }
         });
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+            $data = $event->getData();
+            $form = $event->getForm();
+            $hasErrors = false;
+
+            // Validate all the configs.
+            foreach ($this->configs as $config) {
+                $configName = $this->configDisplayManager->getConfigHtmlName($config);
+                $valueName = 'value:' . $configName;
+                $useParentName = 'use_parent:' . $configName;
+
+                if (!isset($data[$useParentName]) || !$data[$useParentName]) {
+                    $validationResult = $config->validate($data[$valueName], $this->scope);
+                    if ($validationResult->count() > 0) {
+                        $event->getForm()->addError(new FormError($configName . " " . $this->formatErrorMessage($validationResult)));
+                        $hasErrors = true;
+                    }
+                }
+            }
+
+            // Apply new configs.
+            if (!$hasErrors) {
+                foreach ($this->configs as $config) {
+                    $configName = $this->configDisplayManager->getConfigHtmlName($config);
+                    $valueName = 'value:' . $configName;
+                    $useParentName = 'use_parent:' . $configName;
+
+                    if (isset($data[$useParentName]) && $data[$useParentName]) {
+                        $config->set(null, $this->scope);
+                        $form->get($useParentName)->setData(1);
+                    } else {
+                        $config->set($data[$valueName], $this->scope);
+                        $form->get($useParentName)->setData(0);
+                        $form->get($valueName)->setData($data[$valueName]);
+                    }
+                }
+            }
+        });
+
+    }
+
+    protected function formatErrorMessage(ConstraintViolationListInterface $constraintViolationList)
+    {
+        $message = [];
+        foreach ($constraintViolationList as $violation) {
+            /** @var $violation ConstraintViolationInterface */
+            $message[] = $violation->getMessage();
+        }
+
+        return implode(" ", $message);
     }
 
     protected function buildFormForConfig(FormInterface $form, ConfigInterface $config, ?string $scope)

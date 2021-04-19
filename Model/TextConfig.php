@@ -9,6 +9,7 @@ namespace oliverde8\ComfyBundle\Model;
 use oliverde8\ComfyBundle\Manager\ConfigManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -189,6 +190,6 @@ class TextConfig implements ConfigInterface
      */
     protected function getValidationConstraints()
     {
-        return new Collection();
+        return new NotBlank();
     }
 }

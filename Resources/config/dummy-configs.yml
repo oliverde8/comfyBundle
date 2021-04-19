@@ -11,16 +11,37 @@ services:
       $name: "Website's name"
       $description: "The name of the website to display."
       $defaultValue: "My Super duper website"
+      $isHidden: false
     tags:
       - "comfy.config"
 
   myvendor.mybundle.comfy.generic.url:
-    class: oliverde8\ComfyBundle\Model\TextConfig
+    class: oliverde8\ComfyBundle\Model\UrlConfig
     arguments:
       $path: "dummy/generic/url"
       $name: "Website's url"
       $description: "The url of the website, this is used for emails sent by cron jobs."
       $defaultValue: "https://test.com"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.generic.mail:
+    class: oliverde8\ComfyBundle\Model\MailConfig
+    arguments:
+      $path: "dummy/generic/mail"
+      $name: "Communication mail"
+      $description: "The mail to use to send mails"
+      $defaultValue: "test@test.com"
+    tags:
+      - "comfy.config"
+
+  myvendor.mybundle.comfy.generic.enabled:
+    class: oliverde8\ComfyBundle\Model\YesNoConfig
+    arguments:
+      $path: "dummy/generic/enabled"
+      $name: "Site enabled"
+      $description: "Is the website enabled?."
+      $defaultValue: 1
     tags:
       - "comfy.config"
 

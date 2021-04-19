@@ -32,6 +32,29 @@ class ConfigDisplayManager
         return $this->getRecursiveScopeTreeForHtml($this->scopeResolver->getScopeTree());
     }
 
+    /**
+     * Get path to the first config element.
+     *
+     * @param $configItems
+     * @param string $parent
+     * @return string|null
+     */
+    public function getRecursiveFirstConfigPath($configItems, $parent = "")
+    {
+        foreach ($configItems as $key => $config) {
+            if (is_object($config)) {
+                return null;
+            }
+            $child = $this->getRecursiveFirstConfigPath( $config, $parent . "/" . $key);
+
+            if (is_null($child)) {
+                return $parent . "/" . $key;
+            } else {
+                return $child;
+            }
+        }
+    }
+
     protected function getRecursiveScopeTreeForHtml($tree, $parent = "")
     {
         $data = [];
@@ -50,5 +73,6 @@ class ConfigDisplayManager
 
         return $data;
     }
+
 
 }
