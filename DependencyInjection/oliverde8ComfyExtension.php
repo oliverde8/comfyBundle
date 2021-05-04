@@ -24,7 +24,6 @@ class oliverde8ComfyExtension extends Extension
         $loader->load('scope-provider.yml');
         $loader->load('services.yml');
         $loader->load('form-type-provider.yml');
-
-        $loader->load('dummy-configs.yml');
+        // $loader->load('dummy-configs.yml');
     }
 }
