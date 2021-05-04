@@ -1,4 +1,12 @@
 # Comfy Bundle
+[![Build Status](https://scrutinizer-ci.com/g/oliverde8/comfyBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/oliverde8/comfyBundle/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oliverde8/comfyBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oliverde8/comfyBundle/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/oliverde8/comfyBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/oliverde8/comfyBundle/?branch=master)
+[![Donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=oliverde8@gmail.com&lc=US&item_name=php-etl&no_note=0&cn=&curency_code=EUR&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted)
+[![Latest Stable Version](https://poser.pugx.org/oliverde8/comfy-bundle/v)](//packagist.org/packages/oliverde8/comfy-bundle) 
+[![Total Downloads](https://poser.pugx.org/oliverde8/comfy-bundle/downloads)](//packagist.org/packages/oliverde8/comfy-bundle) 
+[![Latest Unstable Version](https://poser.pugx.org/oliverde8/comfy-bundle/v/unstable)](//packagist.org/packages/oliverde8/comfy-bundle) 
+[![License](https://poser.pugx.org/oliverde8/comfy-bundle/license)](//packagist.org/packages/oliverde8/comfy-bundle)
 
 This bundle introduces all the necessary logic in order to save administrable configuration in the database or in any 
 other storage solution.
