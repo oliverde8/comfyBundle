@@ -83,3 +83,63 @@ $this->myConfig->set($newValue);
 $this->myConfig->set($newValue, "default/en_GB");
 ```
 
+### Available config types: 
+
+#### Text config
+```yaml
+  myvendor.mybundle.comfy.generic.name:
+    class: oliverde8\ComfyBundle\Model\TextConfig
+    arguments:
+      $path: "dummy/generic/name"
+      $name: "Website's name"
+      $description: "The name of the website to display."
+      $defaultValue: "My Super duper website"
+      $isHidden: false
+    tags:
+      - "comfy.config"
+```
+
+#### Url config
+
+```yaml
+  myvendor.mybundle.comfy.generic.url:
+    class: oliverde8\ComfyBundle\Model\UrlConfig
+    arguments:
+      $path: "dummy/generic/url"
+      $name: "Website's url"
+      $description: "The url of the website, this is used for emails sent by cron jobs."
+      $defaultValue: "https://test.com"
+    tags:
+      - "comfy.config"
+```
+#### Mail config
+
+```yaml 
+  myvendor.mybundle.comfy.generic.mail:
+    class: oliverde8\ComfyBundle\Model\MailConfig
+    arguments:
+      $path: "dummy/generic/mail"
+      $name: "Communication mail"
+      $description: "The mail to use to send mails"
+      $defaultValue: "test@test.com"
+    tags:
+      - "comfy.config"
+```
+
+#### Select / Multiple Select
+
+```yaml
+  myvendor.mybundle.comfy.generic.select:
+    class: oliverde8\ComfyBundle\Model\SelectConfig
+    arguments:
+      $path: "dummy/generic/countries"
+      $name: "Countries"
+      $description: "The countries the site works for"
+      $defaultValue: '["fr", "ch"]'
+      $options:
+        "France": "fr"
+        "Switzerland": "ch"
+      $allowMultiple: true
+    tags:
+      - "comfy.config"
+```

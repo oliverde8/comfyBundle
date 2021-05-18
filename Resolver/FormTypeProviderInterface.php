@@ -20,6 +20,14 @@ interface FormTypeProviderInterface
     public function addTypeToForm(string $name, ConfigInterface $config, FormInterface $formBuilder, string $scope);
 
     /**
+     * Format data sent by the form before saving it on the config.
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function formatData($data);
+    
+    /**
      * Check if the provider is compatible with this config.
      *
      * @param ConfigInterface $config

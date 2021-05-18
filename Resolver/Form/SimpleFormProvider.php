@@ -50,6 +50,15 @@ class SimpleFormProvider implements FormTypeProviderInterface
     /**
      * @inheritdoc
      */
+    public function formatData($data)
+    {
+        // No formatting needed.
+        return $data;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function supports(ConfigInterface $config): bool
     {
         return $config instanceof $this->configType;
@@ -71,7 +80,7 @@ class SimpleFormProvider implements FormTypeProviderInterface
 
             $parentScope = $this->scopeResolver->inherits($scope);
             if ($config->get($parentScope) != $config->getDefaultValue()) {
-                $helpMessage .= "</br><strong>Parent Scope Value</strong>: " . $config->get($parentScope);
+                $helpMessage .= "</br><strong>Parent Scope Value</strong>: " . json_encode($config->get($parentScope));
             }
         }
 

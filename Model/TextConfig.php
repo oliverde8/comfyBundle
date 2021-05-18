@@ -115,7 +115,7 @@ class TextConfig implements ConfigInterface
      */
     public function getDefaultValue()
     {
-        return $this->deserialize($this->defaultValue);
+        return $this->defaultValue;
     }
 
     /**
@@ -131,6 +131,11 @@ class TextConfig implements ConfigInterface
      */
     public function set($value, string $scope = null): ConfigInterface
     {
+        if (is_null($value)) {
+            // Don't serialize null value when setting new value in the config manager. Null is null.
+            $this->confgManager->set($this->path, null, $scope);
+            return $this;
+        }
         $this->confgManager->set($this->path, $this->serialize($value), $scope);
 
         return $this;
