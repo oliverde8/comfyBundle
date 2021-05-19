@@ -89,9 +89,10 @@ class ConfigsForm extends AbstractType
                         $config->set(null, $this->scope);
                         $form->get($useParentName)->setData(1);
                     } else {
-                        $config->set($data[$valueName], $this->scope);
+                        $configData = $this->getFormProvider($config)->formatData($data[$valueName]);
+                        $config->set($configData, $this->scope);
                         $form->get($useParentName)->setData(0);
-                        $form->get($valueName)->setData($data[$valueName]);
+                        $form->get($valueName)->setData($configData);
                     }
                 }
             }

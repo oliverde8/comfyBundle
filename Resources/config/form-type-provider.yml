@@ -13,6 +13,14 @@ services:
     tags:
       - "comfy.form_provider"
 
+  oliverde8.comfy_bundle.form_type_provider.select:
+    class: oliverde8\ComfyBundle\Resolver\Form\SelectFormProvider
+    arguments:
+      $configType: 'oliverde8\ComfyBundle\Model\SelectConfig'
+      $formType: 'Symfony\Component\Form\Extension\Core\Type\ChoiceType'
+    tags:
+      - "comfy.form_provider"
+
   oliverde8.comfy_bundle.form_type_provider.default:
     class: oliverde8\ComfyBundle\Resolver\Form\SimpleFormProvider
     arguments:
