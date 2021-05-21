@@ -57,14 +57,12 @@ abstract class AbstractScopeResolver implements ScopeResolverInterface
         $data = [];
         foreach ($this->scopes as $scopeKey => $scopeName) {
             $parentScopeKey = $this->inherits($scopeKey);
-            dump($parentScopeKey);
             if ($parentScopeKey && !AssociativeArray::checkKeyExist($data, $parentScopeKey . "/~name")) {
                 AssociativeArray::setFromKey($data, $parentScopeKey . "/~name", $parentScopeKey);
             }
 
             AssociativeArray::setFromKey($data, $scopeKey . "/~name", $scopeName);
         }
-        dump($data);
 
         return $data;
     }
