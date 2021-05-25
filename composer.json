@@ -11,7 +11,9 @@
   ],
   "require": {
     "php": ">=7.4.0",
-    "symfony/framework-bundle": "^4.4|^5.0"
+    "symfony/framework-bundle": "^4.4|^5.0",
+    "symfony/form": "*",
+    "oliverde8/associative-array-simplified": "^1.0"
   },
   "autoload": {
     "psr-4": {
