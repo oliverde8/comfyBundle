@@ -8,13 +8,13 @@ namespace oliverde8\ComfyBundle\Resolver;
 
 use oliverde8\AssociativeArraySimplified\AssociativeArray;
 
-class SimpleScopeResolver implements ScopeResolverInterface
+class SimpleScopeResolver extends AbstractScopeResolver implements ScopeResolverInterface
 {
     /** @var string */
-    protected $defaultScope;
+    protected string $defaultScope;
 
     /** @var array */
-    protected $scopes;
+    protected array $scopes;
 
     /**
      * SimpleScopeResolver constructor.
@@ -30,9 +30,7 @@ class SimpleScopeResolver implements ScopeResolverInterface
 
 
     /**
-     * Get current scope.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getCurrentScope(): string
     {
@@ -40,62 +38,10 @@ class SimpleScopeResolver implements ScopeResolverInterface
     }
 
     /**
-     * Check if a scope is valid or not.
-     *
-     * @param string|null $scope The path of the scope; null will fallback to default scope.
-     *
-     * @return bool
+     * @inheritDoc
      */
-    public function validateScope(string $scope = null): bool
+    protected function initScopes(): array
     {
-        $scope = $this->getScope($scope);
-        return isset($this->scopes[$scope]);
-    }
-
-    /**
-     * Get scope.
-     *
-     * @param string|null $scope
-     *
-     * @return string
-     */
-    public function getScope(string $scope = null): string
-    {
-        if (is_null($scope)) {
-            $scope = $this->getCurrentScope();
-        }
-
-        return $scope;
-    }
-
-    /**
-     * Get scope this scope inherits from. Returns null if scope don't inherit from any other scope.
-     *
-     * @param string|null $scope
-     *
-     * @return string|null
-     */
-    public function inherits(string $scope = null): ?string
-    {
-        $scope = $this->getScope($scope);
-
-        $parts = explode('/', $scope);
-        if (count($parts) <= 1) {
-            return null;
-        }
-
-        array_pop($parts);
-        return implode('/', $parts);
-    }
-
-    public function getScopeTree() : array
-    {
-        $data = [];
-
-        foreach ($this->scopes as $scopeKey => $scopeName) {
-            AssociativeArray::setFromKey($data, $scopeKey . "/~name", $scopeName);
-        }
-
-        return $data;
+        return $this->scopes;
     }
 }

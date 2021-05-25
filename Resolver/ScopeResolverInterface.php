@@ -42,5 +42,10 @@ interface ScopeResolverInterface
      */
     public function inherits(string $scope = null): ?string;
 
+    /**
+     * Get a recursive array of scopes, this is used for display purposes only.
+     *
+     * @return array
+     */
     public function getScopeTree() : array;
 }

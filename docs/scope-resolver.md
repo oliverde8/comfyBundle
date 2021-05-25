@@ -14,10 +14,12 @@ If you have a simple list of scopes you can use the existing SimpleScopeResolver
     class: oliverde8\ComfyBundle\Resolver\SimpleScopeResolver
     arguments:
       "$defaultScope": 'default'
-      "$scopes": 
-        'default': "Default", 
+      "$scopes":
+        'default': "Default"
+        'default/website1': "First Website"
         'default/website1/en': "First Website - English"
         'default/website1/fr': "First Website - French "
+        'default/website2': "Second Website - French"
         'default/website2/fr': "Second Website - French"
 ```
 
@@ -28,45 +30,29 @@ scope will inherit configs from the 'default/website1' scope which in turn inher
 
 By creating your own scope resolver you will be able to define the inheritances and how the default scope is resolved.
 
-Let's first create our Resolver class, this example assumes we have only a single "default scope".
+The easiest to achieve this is to extend `oliverde8\ComfyBundle\Resolver\AbstractScopeResolver`. 
 
 ```php
-<?php 
-namespace App\Resolver;
-
-class ComfyCustomScopeResolver implements ScopeResolverInterface
-{
+    /**
+     * @inheritDoc
+     */
     public function getCurrentScope(): string
     {
         return "default";
     }
 
-    public function validateScope(string $scope = null): bool 
+    /**
+     * @inheritDoc
+     */
+    protected function initScopes(): array
     {
-        return $scope == "default";
+        return [
+            'default': 'Default',
+            'default/website1': 'Default Website 1',
+            'default/website1/en': 'Default Website 1 - English',
+            'default/website1/fr': 'Default Website 1 - French',
+        ]
     }
-
-    public function getScope(string $scope = null): string
-    {
-        return "default";
-    }
-
-    public function inherits(string $scope = null)
-    {
-        return null;
-    }
-
-    public function getScopeTree() : array
-    {
-        return ['default' => ['~name' => "Default"]];
-    }
-}
-
 ```
 
-Once our Resolver is created we can use the di to use our new class instead of the default one
-
-```yml
-  oliverde8\ComfyBundle\Resolver\ScopeResolverInterface:
-    class: App\Resolver\ComfyCustomScopeResolver
-```
+The init scope method can make database queries if needed; the method is only called once per request. 
