@@ -45,6 +45,7 @@ class DoctrineEntityStorage implements StorageInterface
         } else {
             $this->entityManager->persist($this->entities[$scope][$configPath]);
         }
+        $this->entityManager->flush();
     }
 
     public function load(array $scopes): array
@@ -62,10 +63,5 @@ class DoctrineEntityStorage implements StorageInterface
         }
 
         return $groupedConfigValues;
-    }
-
-    public function __destruct()
-    {
-        $this->entityManager->flush();
     }
 }
