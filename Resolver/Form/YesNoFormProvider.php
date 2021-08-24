@@ -5,6 +5,7 @@ namespace oliverde8\ComfyBundle\Resolver\Form;
 
 
 use oliverde8\ComfyBundle\Model\ConfigInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
 class YesNoFormProvider extends SimpleFormProvider
@@ -12,7 +13,7 @@ class YesNoFormProvider extends SimpleFormProvider
     /**
      * @inheritdoc
      */
-    public function addTypeToForm(string $name, ConfigInterface $config, FormInterface $formBuilder, string $scope)
+    public function addTypeToForm(string $name, ConfigInterface $config, FormBuilderInterface $formBuilder, string $scope)
     {
         $formBuilder->add(
             $name,

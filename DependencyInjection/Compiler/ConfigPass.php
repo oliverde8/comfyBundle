@@ -25,6 +25,7 @@ class ConfigPass implements CompilerPassInterface
         if (!$container->has(ConfigManagerInterface::class)) {
             return;
         }
+
         $definition = $container->getDefinition(ConfigManagerInterface::class);
 
         // Find all config's

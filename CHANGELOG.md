@@ -1,3 +1,6 @@
+# 1.0.0 Alhpa #4
+
+- :star2: Improved quality of the form builders. **THIS INTRODUCES A BC TO FORM PROVIDERS**
 
 # 1.0.0 Alpha #3
 

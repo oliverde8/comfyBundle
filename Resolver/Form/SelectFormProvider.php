@@ -7,6 +7,7 @@ namespace oliverde8\ComfyBundle\Resolver\Form;
 use oliverde8\ComfyBundle\Exception\InvalidConfigTypeForFormProvider;
 use oliverde8\ComfyBundle\Model\ConfigInterface;
 use oliverde8\ComfyBundle\Model\SelectConfig;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
 class SelectFormProvider extends SimpleFormProvider
@@ -14,7 +15,7 @@ class SelectFormProvider extends SimpleFormProvider
     /**
      * @inheritdoc
      */
-    public function addTypeToForm(string $name, ConfigInterface $config, FormInterface $formBuilder, string $scope)
+    public function addTypeToForm(string $name, ConfigInterface $config, FormBuilderInterface $formBuilder, string $scope)
     {
         if (!($config instanceof SelectConfig)) {
             throw new InvalidConfigTypeForFormProvider(

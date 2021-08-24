@@ -6,6 +6,7 @@ namespace oliverde8\ComfyBundle\Resolver\Form;
 use oliverde8\ComfyBundle\Model\ConfigInterface;
 use oliverde8\ComfyBundle\Resolver\FormTypeProviderInterface;
 use oliverde8\ComfyBundle\Resolver\ScopeResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
 class SimpleFormProvider implements FormTypeProviderInterface
@@ -34,7 +35,7 @@ class SimpleFormProvider implements FormTypeProviderInterface
     /**
      * @inheritdoc
      */
-    public function addTypeToForm(string $name, ConfigInterface $config, FormInterface $formBuilder, string $scope)
+    public function addTypeToForm(string $name, ConfigInterface $config, FormBuilderInterface $formBuilder, string $scope)
     {
         $formBuilder->add(
             $name,
@@ -79,7 +80,7 @@ class SimpleFormProvider implements FormTypeProviderInterface
             $helpMessage .= "</br><strong>Default Value</strong>: " . $config->getDefaultValue();
 
             $parentScope = $this->scopeResolver->inherits($scope);
-            if ($config->get($parentScope) != $config->getDefaultValue()) {
+            if (!is_null($parentScope)) {
                 $helpMessage .= "</br><strong>Parent Scope Value</strong>: " . json_encode($config->get($parentScope));
             }
         }

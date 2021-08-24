@@ -4,6 +4,7 @@ namespace oliverde8\ComfyBundle\Resolver;
 
 
 use oliverde8\ComfyBundle\Model\ConfigInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
 interface FormTypeProviderInterface
@@ -17,7 +18,7 @@ interface FormTypeProviderInterface
      * @param string $scope
      * @return mixed
      */
-    public function addTypeToForm(string $name, ConfigInterface $config, FormInterface $formBuilder, string $scope);
+    public function addTypeToForm(string $name, ConfigInterface $config, FormBuilderInterface $formBuilder, string $scope);
 
     /**
      * Format data sent by the form before saving it on the config.

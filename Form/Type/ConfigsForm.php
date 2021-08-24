@@ -39,7 +39,6 @@ class ConfigsForm extends AbstractType
         $this->formTypeProviders = $formTypeProviders;
     }
 
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('save', SubmitType::class, ['label' => 'Save configs']);
@@ -66,11 +65,12 @@ class ConfigsForm extends AbstractType
             // Validate all the configs.
             foreach ($this->configs as $config) {
                 $configName = $this->configDisplayManager->getConfigHtmlName($config);
-                $valueName = 'value:' . $configName;
-                $useParentName = 'use_parent:' . $configName;
 
-                if (!isset($data[$useParentName]) || !$data[$useParentName]) {
-                    $validationResult = $config->validate($data[$valueName], $this->scope);
+                $value = $data[$configName]['value'] ?? null;
+                $useParent = $data[$configName]['use_parent'] ?? null;
+
+                if (!is_null($value) && !$useParent) {
+                    $validationResult = $config->validate($value, $this->scope);
                     if ($validationResult->count() > 0) {
                         $event->getForm()->addError(new FormError($configName . " " . $this->formatErrorMessage($validationResult)));
                         $hasErrors = true;
@@ -82,22 +82,18 @@ class ConfigsForm extends AbstractType
             if (!$hasErrors) {
                 foreach ($this->configs as $config) {
                     $configName = $this->configDisplayManager->getConfigHtmlName($config);
-                    $valueName = 'value:' . $configName;
-                    $useParentName = 'use_parent:' . $configName;
+                    $value = $data[$configName]['value'] ?? null;
+                    $useParent = $data[$configName]['use_parent'] ?? null;
 
-                    if (isset($data[$useParentName]) && $data[$useParentName]) {
+                    if ($useParent) {
                         $config->set(null, $this->scope);
-                        $form->get($useParentName)->setData(1);
                     } else {
-                        $configData = $this->getFormProvider($config)->formatData($data[$valueName]);
+                        $configData = $this->getFormProvider($config)->formatData($value);
                         $config->set($configData, $this->scope);
-                        $form->get($useParentName)->setData(0);
-                        $form->get($valueName)->setData($configData);
                     }
                 }
             }
         });
-
     }
 
     protected function formatErrorMessage(ConstraintViolationListInterface $constraintViolationList)
@@ -113,16 +109,13 @@ class ConfigsForm extends AbstractType
 
     protected function buildFormForConfig(FormInterface $form, ConfigInterface $config, ?string $scope)
     {
-        $name = "value:" . $this->configDisplayManager->getConfigHtmlName($config);
-        $this->getFormProvider($config)->addTypeToForm($name, $config, $form, $scope);
-
         $form->add(
-            "use_parent:" . $this->configDisplayManager->getConfigHtmlName($config),
-            CheckboxType::class,
+            $this->configDisplayManager->getConfigHtmlName($config),
+            ConfigFormType::class,
             [
-                'label' => 'Use Parent config',
-                'data' => $config->doesInherit($scope),
-                'required' => false,
+                'comfy_config' => $config,
+                'comfy_form_provider' => $this->getFormProvider($config),
+                'comfy_scope' => $scope,
             ]
         );
     }
