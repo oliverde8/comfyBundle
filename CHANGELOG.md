@@ -1,6 +1,7 @@
 # 1.0.0 Alhpa #4
 
 - :star2: Improved quality of the form builders. **THIS INTRODUCES A BC TO FORM PROVIDERS**
+- :wrench: Issue with usage of __destruct to flush entities causing issues with sylius and possibly other bundles/solutions.
 
 # 1.0.0 Alpha #3
 
