@@ -123,7 +123,7 @@ class TextConfig implements ConfigInterface
      */
     public function getRawValue(string $scope = null): ?string
     {
-        $this->confgManager->get($this->path, $scope);
+        return $this->confgManager->get($this->path, $scope);
     }
 
     /**

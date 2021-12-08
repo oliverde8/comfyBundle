@@ -143,3 +143,17 @@ $this->myConfig->set($newValue, "default/en_GB");
     tags:
       - "comfy.config"
 ```
+
+#### Json
+
+```yaml
+  myvendor.mybundle.comfy.generic.select:
+    class: oliverde8\ComfyBundle\Model\JsonConfig
+    arguments:
+      $path: "dummy/generic/complexJson"
+      $name: "My Json"
+      $description: "The complex object"
+      $defaultValue: '{"test":"my value"}'
+    tags:
+      - "comfy.config"
+```

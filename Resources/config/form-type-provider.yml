@@ -21,6 +21,14 @@ services:
     tags:
       - "comfy.form_provider"
 
+  oliverde8.comfy_bundle.form_type_provider.json:
+    class: oliverde8\ComfyBundle\Resolver\Form\JsonFormProvider
+    arguments:
+      $configType: 'oliverde8\ComfyBundle\Model\JsonConfig'
+      $formType: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+    tags:
+      - "comfy.form_provider"
+
   oliverde8.comfy_bundle.form_type_provider.default:
     class: oliverde8\ComfyBundle\Resolver\Form\SimpleFormProvider
     arguments:
