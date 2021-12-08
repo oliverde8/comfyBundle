@@ -16,14 +16,11 @@ class JsonConfig extends TextConfig
 
     protected function serialize($value): ?string
     {
-        dump($value);
         return !is_null($value) ? json_encode($value) : null;
     }
 
     public function deserialize(?string $value)
     {
-        dump($value);
-        dump(json_decode($value, true));
         return !is_null($value) ? json_decode($value, true) : null;
     }
 }

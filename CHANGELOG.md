@@ -1,3 +1,10 @@
+# 1.0.0 
+
+- :confetti_ball: :tada: First stable release :tada: :confetti_ball:
+- :star2: Added Json config type. 
+- :star2: Added support for symfony 6
+- :wrench: Fix issue with `getRawValue` on configs returning always null.
+
 # 1.0.0 Alhpa #4
 
 - :star2: Improved quality of the form builders. **THIS INTRODUCES A BC TO FORM PROVIDERS**
