@@ -30,7 +30,7 @@ composer require oliverde/comfy-bundle
 
 If you want to use doctrine for storage you will need to install it, if not please refeer to the alternative storage section.
 
-See our [getting srated guide](docs/getting-started.md).
+See our [getting started guide](docs/getting-started.md).
 
 ## Advance usages
 
