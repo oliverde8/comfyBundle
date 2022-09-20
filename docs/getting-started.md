@@ -157,3 +157,19 @@ $this->myConfig->set($newValue, "default/en_GB");
     tags:
       - "comfy.config"
 ```
+
+#### Entity
+
+```yaml
+  myvendor.mybundle.comfy.generic.entity:
+    class: oliverde8\ComfyBundle\Model\JsonConfig
+    arguments:
+      $path: "dummy/generic/entity"
+      $name: "My Entity"
+      $description: "The selected entity object"
+      $defaultValue: '12' # can be null
+      $entity: 'App/Entity/MyEntity'
+      $choiceLabel: 'label' # Name of the label field.
+    tags:
+      - "comfy.config"
+```

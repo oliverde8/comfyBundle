@@ -28,6 +28,13 @@ services:
       $formType: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
     tags:
       - "comfy.form_provider"
+  oliverde8.comfy_bundle.form_type_provider.entity:
+    class: oliverde8\ComfyBundle\Resolver\Form\EntityFormProvider
+    arguments:
+      $configType: 'oliverde8\ComfyBundle\Model\EntityConfig'
+      $formType: 'Symfony\Bridge\Doctrine\Form\Type\EntityType'
+    tags:
+      - "comfy.form_provider"
 
   oliverde8.comfy_bundle.form_type_provider.default:
     class: oliverde8\ComfyBundle\Resolver\Form\SimpleFormProvider

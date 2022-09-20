@@ -1,3 +1,7 @@
+# 1.1.0
+
+- :star2: Added new Entity config type.
+
 # 1.0.0 
 
 - :confetti_ball: :tada: First stable release :tada: :confetti_ball:
