@@ -3,6 +3,7 @@
 This version introduces multiple improvements for generating forms to change configurations by introducing new services
 and by adding security voters for permissions. 
 
+- :star2: Improved performance greately (some use cases divided per 10) when getting configuration values.
 - :star2: Introduced new service `VisibleConfigsResolver` to check permissions when fetching configs.
 - :star2: Introduced new voter `ConfigVoter` to allow user access to read or write on a config.
 - :star2: Introduced new voter `ScopeVoter` to allow user access to read or write on a configs for a specific scope.
