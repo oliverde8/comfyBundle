@@ -1,3 +1,15 @@
+# 1.2.0 
+
+This version introduces multiple improvements for generating forms to change configurations by introducing new services
+and by adding security voters for permissions. 
+
+- :star2: Introduced new service `VisibleConfigsResolver` to check permissions when fetching configs.
+- :star2: Introduced new voter `ConfigVoter` to allow user access to read or write on a config.
+- :star2: Introduced new voter `ScopeVoter` to allow user access to read or write on a configs for a specific scope.
+- :collision: Method `getRecursiveFirstConfigPath` of `ConfigDisplayManager` is now deprecated and shouldn't be used. The `VisibleConfigsResolver` should be used.  
+
+There are no Breaking Changes, so existing sources should behave as before. 
+
 # 1.1.0
 
 - :star2: Added new Entity config type.

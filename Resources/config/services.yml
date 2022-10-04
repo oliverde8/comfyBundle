@@ -17,9 +17,15 @@ services:
   oliverde8\ComfyBundle\Manager\ConfigDisplayManager:
     class: oliverde8\ComfyBundle\Manager\ConfigDisplayManager
 
+  oliverde8\ComfyBundle\Resolver\VisibleConfigsResolver:
+      class: oliverde8\ComfyBundle\Resolver\VisibleConfigsResolver
+
 
   oliverde8\ComfyBundle\Command\:
     resource: "../../Command/*"
 
   oliverde8\ComfyBundle\Form\:
     resource: "../../Form/*"
+
+  oliverde8\ComfyBundle\Security\:
+    resource: "../../Security/*"
