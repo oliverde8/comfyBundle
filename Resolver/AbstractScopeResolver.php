@@ -16,6 +16,8 @@ abstract class AbstractScopeResolver implements ScopeResolverInterface
      */
     public function validateScope(string $scope = null): bool
     {
+        $this->initScopes();
+
         $scopes = $this->getScopes();
         $scope = $this->getScope($scope);
         return isset($scopes[$scope]);
@@ -26,6 +28,8 @@ abstract class AbstractScopeResolver implements ScopeResolverInterface
      */
     public function getScope(string $scope = null): string
     {
+        $this->initScopes();
+
         if (is_null($scope)) {
             $scope = $this->getCurrentScope();
         }
@@ -38,6 +42,7 @@ abstract class AbstractScopeResolver implements ScopeResolverInterface
      */
     public function inherits(string $scope = null): ?string
     {
+        $this->initScopes();
         $scope = $this->getScope($scope);
 
         $parts = explode('/', $scope);
@@ -54,6 +59,8 @@ abstract class AbstractScopeResolver implements ScopeResolverInterface
      */
     public function getScopeTree() : array
     {
+        $this->initScopes();
+
         $data = [];
         foreach ($this->scopes as $scopeKey => $scopeName) {
             $parentScopeKey = $this->inherits($scopeKey);

@@ -41,8 +41,9 @@ class GetScopesCommand extends Command
 
         $lines = [];
         $this->getLinesRecursively($lines, $this->scopeResolver->getScopeTree());
-
         $sfs->table(["code", "name"], $lines);
+
+        return self::SUCCESS;
     }
 
     private function getLinesRecursively(&$lines, $scopes, $depth = -1, $previousScopeCode = "")

@@ -7,6 +7,9 @@ and by adding security voters for permissions.
 - :star2: Introduced new voter `ConfigVoter` to allow user access to read or write on a config.
 - :star2: Introduced new voter `ScopeVoter` to allow user access to read or write on a configs for a specific scope.
 - :collision: Method `getRecursiveFirstConfigPath` of `ConfigDisplayManager` is now deprecated and shouldn't be used. The `VisibleConfigsResolver` should be used.  
+- :wrench: Fix issue with `getScopeTree` failing on `AbstractScopeResolver` if `initScopes` was not called before. 
+
+
 
 There are no Breaking Changes, so existing sources should behave as before. 
 
