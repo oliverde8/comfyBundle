@@ -23,6 +23,25 @@ The **path** as well as the name & description are used for the admin interfaces
 
 Finally, each config has a default value.
 
+## Set & Get Values from the command line
+
+To check you config value you can use 
+```
+./bin/console comfy:get test
+```
+
+or 
+
+```
+./bin/console comfy:get test/test1
+```
+
+In order to set values you can use
+
+```
+./bin/console comfy:set test/test1 'my super value'
+```
+
 ## Use the configs
 
 In order to use the configs, get and set values you will need to simply inject them into your service.

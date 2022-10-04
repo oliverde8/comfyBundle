@@ -6,10 +6,11 @@ and by adding security voters for permissions.
 - :star2: Introduced new service `VisibleConfigsResolver` to check permissions when fetching configs.
 - :star2: Introduced new voter `ConfigVoter` to allow user access to read or write on a config.
 - :star2: Introduced new voter `ScopeVoter` to allow user access to read or write on a configs for a specific scope.
+- :star2: Introduced command `comfy:config:get` to check configuration values from the command line.
+- :star2: Introduced command `comfy:config:set` to change configuration values from the command line.
 - :collision: Method `getRecursiveFirstConfigPath` of `ConfigDisplayManager` is now deprecated and shouldn't be used. The `VisibleConfigsResolver` should be used.  
 - :wrench: Fix issue with `getScopeTree` failing on `AbstractScopeResolver` if `initScopes` was not called before. 
-
-
+- :wrench: Fix issue `comfy:scope:list` command failing with some scope resolver implementations.
 
 There are no Breaking Changes, so existing sources should behave as before. 
 

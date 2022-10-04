@@ -56,7 +56,6 @@ To add custom validations you need to create your own config type.
 ### Low priority
 - [ ] Add more basic config types.
   - [ ] Ideas? Create a ticket
-- [ ] Add command line to see configs & scopes
 - [ ] Add caching per scope. Do this by creating a layered storage so that when we read we first read on the cacheStorage then the other solution.
 - [ ] Add documentation.
   - [ ] How not to use doctrine but alternative solution.
