@@ -7,6 +7,7 @@ use oliverde8\ComfyBundle\Resolver\FormTypeProviderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConfigFormType extends AbstractType
@@ -19,6 +20,8 @@ class ConfigFormType extends AbstractType
         $formProvider = $options['comfy_form_provider'];
         /** @var string $scope */
         $scope = $options['comfy_scope'];
+        /** @var boolean $scope */
+        $disabled = $options['disabled'];
 
         $formProvider->addTypeToForm('value', $config, $builder, $scope);
 
@@ -31,6 +34,13 @@ class ConfigFormType extends AbstractType
                 'required' => false,
             ]
         );
+
+        if ($disabled) {
+            foreach ($builder->all() as $formBuilder) {
+                $formBuilder->setDisabled(true);
+                $formBuilder->setAttribute('disabled', 'true');
+            }
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -39,6 +49,7 @@ class ConfigFormType extends AbstractType
             'comfy_config' => null,
             'comfy_form_provider' => null,
             'comfy_scope' => null,
+            'disabled' => false,
         ]);
     }
 }

@@ -33,6 +33,8 @@ class ConfigManager implements ConfigManagerInterface
     /** @var array */
     protected $configParentInheritance;
 
+    protected array $resolvedScopes = [];
+
     /**
      * ConfigManager constructor.
      *
@@ -66,7 +68,6 @@ class ConfigManager implements ConfigManagerInterface
         }
 
         $this->storage->save($configPath, $scope, $value);
-
         return $this;
     }
 
@@ -88,7 +89,6 @@ class ConfigManager implements ConfigManagerInterface
     {
         $this->validatePath($configPath);
         $scope = $this->validateScope($scope);
-
         return $this->configParentInheritance[$scope][$configPath];
     }
 
@@ -112,18 +112,23 @@ class ConfigManager implements ConfigManagerInterface
 
     protected function validateScope($scope)
     {
+        if (isset($this->resolvedScopes[$scope])) {
+            return $this->resolvedScopes[$scope];
+        }
+
         if (!$this->scopeResolver->validateScope($scope)) {
             throw new UnknownScopeException("Scope '$scope' was not found!");
         }
 
-        $scope = $this->scopeResolver->getScope($scope);
+        $scopeValue = $this->scopeResolver->getScope($scope);
+        $this->resolvedScopes[$scope] = $scopeValue;
 
-        if (!isset($this->configValues[$scope])) {
+        if (!isset($this->configValues[$scopeValue])) {
             // TODO first check in cache.
-            $this->loadScopeFromStorage($scope);
+            $this->loadScopeFromStorage($scopeValue);
         }
 
-        return $scope;
+        return $scopeValue;
     }
 
     protected function validatePath($path)

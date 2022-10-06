@@ -4,7 +4,10 @@ namespace oliverde8\ComfyBundle\Form\Type;
 
 use oliverde8\ComfyBundle\Manager\ConfigDisplayManager;
 use oliverde8\ComfyBundle\Model\ConfigInterface;
+use oliverde8\ComfyBundle\Model\Scope;
 use oliverde8\ComfyBundle\Resolver\FormTypeProviderInterface;
+use oliverde8\ComfyBundle\Security\ConfigVoter;
+use oliverde8\ComfyBundle\Security\ScopeVoter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,12 +17,15 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ConfigsForm extends AbstractType
 {
     protected ConfigDisplayManager $configDisplayManager;
+
+    private AuthorizationCheckerInterface $checker;
 
     /** @var FormTypeProviderInterface[] */
     protected array $formTypeProviders;
@@ -33,9 +39,10 @@ class ConfigsForm extends AbstractType
      * ConfigsForm constructor.
      * @param ConfigDisplayManager $configDisplayManager
      */
-    public function __construct(ConfigDisplayManager $configDisplayManager, array $formTypeProviders)
+    public function __construct(ConfigDisplayManager $configDisplayManager, AuthorizationCheckerInterface $checker, array $formTypeProviders)
     {
         $this->configDisplayManager = $configDisplayManager;
+        $this->checker = $checker;
         $this->formTypeProviders = $formTypeProviders;
     }
 
@@ -50,9 +57,10 @@ class ConfigsForm extends AbstractType
             $this->scope = $data['scope'] ?? null;;
             $this->configs = $data['configs'] ?? [];
 
+            $scopeObject = new Scope($this->scope);
             foreach ($this->configs as $config) {
                 if (!is_array($config)) {
-                    $this->buildFormForConfig($form, $config, $this->scope);
+                    $this->buildFormForConfig($form, $config, $scopeObject);
                 }
             }
         });
@@ -107,15 +115,24 @@ class ConfigsForm extends AbstractType
         return implode(" ", $message);
     }
 
-    protected function buildFormForConfig(FormInterface $form, ConfigInterface $config, ?string $scope)
+    protected function buildFormForConfig(FormInterface $form, ConfigInterface $config, Scope $scope)
     {
+        $disabled = false;
+        if (!$this->checker->isGranted(ConfigVoter::ACTION_EDIT, $config)) {
+            $disabled = true;
+        }
+        if (!$disabled && !$this->checker->isGranted(ScopeVoter::ACTION_EDIT, $scope)) {
+            $disabled = true;
+        }
+
         $form->add(
             $this->configDisplayManager->getConfigHtmlName($config),
             ConfigFormType::class,
             [
                 'comfy_config' => $config,
                 'comfy_form_provider' => $this->getFormProvider($config),
-                'comfy_scope' => $scope,
+                'comfy_scope' => $scope->getName(),
+                'disabled' => $disabled,
             ]
         );
     }
