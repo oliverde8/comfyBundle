@@ -51,11 +51,11 @@ To add custom validations you need to create your own config type.
 :construction:
 
 ## TODO
-
   
 ### Low priority
 - [ ] Add more basic config types.
-  - [ ] Ideas? Create a ticket
+  - [ ] Ideas? Create a ticket.
 - [ ] Add caching per scope. Do this by creating a layered storage so that when we read we first read on the cacheStorage then the other solution.
 - [ ] Add documentation.
-  - [ ] How not to use doctrine but alternative solution.
+  - [ ] How not to use doctrine but alternative solution. This is supported by the code but not documented. 
+  - [ ] How to create an admin interface using the servies & forms & permission voters.
