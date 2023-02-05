@@ -11,7 +11,7 @@ class ConfigVoter extends Voter
     public const ACTION_VIEW = 'view';
     public const ACTION_EDIT = 'edit';
 
-    protected function supports($attribute, $subject)
+    protected function supports(string $attribute, mixed $subject): bool
     {
         if ($subject == ConfigInterface::class) {
             return true;
@@ -24,7 +24,7 @@ class ConfigVoter extends Voter
         return false;
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         return true;
     }

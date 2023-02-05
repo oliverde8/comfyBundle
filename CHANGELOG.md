@@ -1,3 +1,10 @@
+# 1.3.0 
+
+- :star2: Support for symfony 6.0 has been added.
+- :collision: Support for Symfony 4.4 has been dropped.
+- :collision: Support for php 7.4 has been dropped.
+
+
 # 1.2.0 
 
 This version introduces multiple improvements for generating forms to change configurations by introducing new services
