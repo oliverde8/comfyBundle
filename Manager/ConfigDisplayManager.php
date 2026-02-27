@@ -10,18 +10,11 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ConfigDisplayManager
 {
-    protected AuthorizationCheckerInterface $checker;
-    protected ConfigManagerInterface $configManager;
-    protected ScopeResolverInterface $scopeResolver;
-
     public function __construct(
-        ConfigManagerInterface $configManager,
-        ScopeResolverInterface $scopeResolver,
-        AuthorizationCheckerInterface $checker
+        protected ConfigManagerInterface $configManager,
+        protected ScopeResolverInterface $scopeResolver,
+        protected AuthorizationCheckerInterface $checker
     ) {
-        $this->configManager = $configManager;
-        $this->scopeResolver = $scopeResolver;
-        $this->checker = $checker;
     }
 
     public function getConfigHtmlName(ConfigInterface $config)
@@ -73,7 +66,7 @@ class ConfigDisplayManager
         }
 
         $data['sub_scopes'] = [];
-        if (count($tree) > 0) {
+        if (!empty($tree)) {
             foreach ($tree as $key => $item) {
                 if ($this->checker->isGranted(ScopeVoter::ACTION_VIEW, new Scope($parent . $key . "/"))) {
                     $data['sub_scopes'][$parent . $key] = $this->getRecursiveScopeTreeForHtml($item, $parent . $key . "/");

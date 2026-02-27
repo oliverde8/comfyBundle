@@ -8,8 +8,7 @@ use oliverde8\AssociativeArraySimplified\AssociativeArray;
 
 abstract class AbstractScopeResolver implements ScopeResolverInterface
 {
-    /** @var array */
-    private ?array $scopes = null;
+    protected array $scopes = [];
 
     /**
      * @inheritDoc

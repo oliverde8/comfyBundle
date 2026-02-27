@@ -5,6 +5,7 @@
 You will need to first create a new configuration. Todo this declare a service as fallows: 
 
 ```yml
+services:
   my_vendor.my_bundle.comfy.config1:
     class: oliverde8\ComfyBundle\Model\TextConfig
     arguments:

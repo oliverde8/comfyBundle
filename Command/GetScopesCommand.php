@@ -35,7 +35,7 @@ class GetScopesCommand extends Command
         $this->setName("comfy:scope:list");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $sfs = new SymfonyStyle($input, $output);
 

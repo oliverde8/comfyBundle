@@ -8,7 +8,6 @@ use oliverde8\ComfyBundle\Model\EntityConfig;
 use oliverde8\ComfyBundle\Model\SelectConfig;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
 
 class EntityFormProvider extends SimpleFormProvider
 {
@@ -19,7 +18,7 @@ class EntityFormProvider extends SimpleFormProvider
     {
         if (!($config instanceof EntityConfig)) {
             throw new InvalidConfigTypeForFormProvider(
-                sprintf("Config is expected to be of type %s but is of type %s", SelectConfig::class, get_class($config))
+                sprintf("Config is expected to be of type %s but is of type %s", SelectConfig::class, $config::class)
             );
         }
 

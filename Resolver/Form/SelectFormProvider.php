@@ -8,7 +8,6 @@ use oliverde8\ComfyBundle\Exception\InvalidConfigTypeForFormProvider;
 use oliverde8\ComfyBundle\Model\ConfigInterface;
 use oliverde8\ComfyBundle\Model\SelectConfig;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
 
 class SelectFormProvider extends SimpleFormProvider
 {
@@ -19,7 +18,7 @@ class SelectFormProvider extends SimpleFormProvider
     {
         if (!($config instanceof SelectConfig)) {
             throw new InvalidConfigTypeForFormProvider(
-                sprintf("Config is expected to be of type %s but is of type %s", SelectConfig::class, get_class($config))
+                sprintf("Config is expected to be of type %s but is of type %s", SelectConfig::class, $config::class)
             );
         }
 

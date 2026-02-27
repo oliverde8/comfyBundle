@@ -24,7 +24,7 @@ class ConfigVoter extends Voter
         return false;
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(...$args): bool
     {
         return true;
     }

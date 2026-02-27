@@ -23,6 +23,9 @@ class LocaleScopeResolver extends SimpleScopeResolver
 
     public function getCurrentScope(): string
     {
+        if (is_null($this->request->getCurrentRequest())) {
+            return $this->defaultScope;
+        }
         return $this->defaultScope . "/" . $this->request->getCurrentRequest()->getLocale();
     }
 }

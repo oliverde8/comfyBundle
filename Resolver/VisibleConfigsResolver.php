@@ -10,18 +10,10 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class VisibleConfigsResolver
 {
-    protected AuthorizationCheckerInterface $checker;
-
-    protected ConfigManagerInterface $configManager;
-
-    /**
-     * @param AuthorizationCheckerInterface $checker
-     * @param ConfigManagerInterface $configManager
-     */
-    public function __construct(AuthorizationCheckerInterface $checker, ConfigManagerInterface $configManager)
-    {
-        $this->checker = $checker;
-        $this->configManager = $configManager;
+    public function __construct(
+        protected AuthorizationCheckerInterface $checker,
+        protected ConfigManagerInterface $configManager
+    ) {
     }
 
     public function getAllowedConfigs(string $configPath, string $action = ConfigVoter::ACTION_VIEW): array
@@ -39,7 +31,7 @@ class VisibleConfigsResolver
         $allowedConfigs = new AssociativeArray();
 
         $allConfigs = $this->configManager->getAllConfigs();
-        array_walk_recursive($allConfigs, function ($config, $key) use($allowedConfigs, $action) {
+        array_walk_recursive($allConfigs, function ($config, $key) use($allowedConfigs, $action): void {
             if (is_object($config)) {
                 if ($config->isHidden()) {
                     return;

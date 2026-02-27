@@ -15,59 +15,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TextConfig implements ConfigInterface
 {
-    /** @var ConfigManagerInterface */
-    protected $confgManager;
-
-    /** @var ValidatorInterface */
-    protected $validator;
-
-    /** @var string */
-    protected $path;
-
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $description;
-
-    /** @var int */
-    private $scope;
-
-    /** @var bool */
-    private $isHidden;
-
-    /** @var string|null */
-    private $defaultValue;
-
-    /**
-     * AbstractConfig constructor.
-     * @param ConfigManagerInterface $configManager
-     * @param ValidatorInterface $validator
-     * @param string $path
-     * @param string $name
-     * @param string $description
-     * @param int $scope
-     * @param string|null $defaultValue
-     * @param bool $isHidden
-     */
     public function __construct(
-        ConfigManagerInterface $configManager,
-        ValidatorInterface $validator,
-        string $path,
-        string $name,
-        string $description = "",
-        int $scope = PHP_INT_MAX,
-        ?string $defaultValue = null,
-        bool $isHidden = false
+        protected ConfigManagerInterface $configManager,
+        protected ValidatorInterface $validator,
+        protected string $path,
+        private string $name,
+        private string $description = "",
+        private int $scope = PHP_INT_MAX,
+        private ?string $defaultValue = null,
+        private bool $isHidden = false
     ) {
-        $this->confgManager = $configManager;
-        $this->validator = $validator;
-        $this->path = $path;
-        $this->name = $name;
-        $this->description = $description;
-        $this->scope = $scope;
-        $this->isHidden = $isHidden;
-        $this->defaultValue = $defaultValue;
     }
 
     /**
@@ -123,7 +80,7 @@ class TextConfig implements ConfigInterface
      */
     public function getRawValue(string $scope = null): ?string
     {
-        return $this->confgManager->get($this->path, $scope);
+        return $this->configManager->get($this->path, $scope);
     }
 
     /**
@@ -133,10 +90,10 @@ class TextConfig implements ConfigInterface
     {
         if (is_null($value)) {
             // Don't serialize null value when setting new value in the config manager. Null is null.
-            $this->confgManager->set($this->path, null, $scope);
+            $this->configManager->set($this->path, null, $scope);
             return $this;
         }
-        $this->confgManager->set($this->path, $this->serialize($value), $scope);
+        $this->configManager->set($this->path, $this->serialize($value), $scope);
 
         return $this;
     }
@@ -154,14 +111,14 @@ class TextConfig implements ConfigInterface
      */
     public function get(string $scope = null)
     {
-        return $this->deserialize($this->confgManager->get($this->path, $scope));
+        return $this->deserialize($this->configManager->get($this->path, $scope));
     }
     /**
      * @inheritDoc
      */
     public function doesInherit(string $scope = null)
     {
-        return $this->confgManager->doesInhertit($this->path, $scope);
+        return $this->configManager->doesInhertit($this->path, $scope);
     }
 
     /**

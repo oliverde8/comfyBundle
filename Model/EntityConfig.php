@@ -12,10 +12,6 @@ class EntityConfig extends TextConfig
 {
     private EntityManagerInterface $entityManager;
 
-    protected string $entity;
-
-    protected string $choiceLabel;
-
     public function __construct(
         ConfigManagerInterface $configManager,
         ValidatorInterface $validator,
@@ -26,14 +22,12 @@ class EntityConfig extends TextConfig
         int $scope = PHP_INT_MAX,
         ?string $defaultValue = null,
         bool $isHidden = false,
-        string $entity = "",
-        string $choiceLabel = "id"
+        protected string $entity = "",
+        protected string $choiceLabel = "id"
     ) {
         parent::__construct($configManager, $validator, $path, $name, $description, $scope, $defaultValue, $isHidden);
 
         $this->entityManager = $entityManager;
-        $this->entity = $entity;
-        $this->choiceLabel = $choiceLabel;
     }
 
     /**
