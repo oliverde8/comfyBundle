@@ -6,26 +6,12 @@
 
 namespace oliverde8\ComfyBundle\Resolver;
 
-use oliverde8\AssociativeArraySimplified\AssociativeArray;
-
 class SimpleScopeResolver extends AbstractScopeResolver implements ScopeResolverInterface
 {
-    /** @var string */
-    protected string $defaultScope;
-
-    /** @var array */
-    protected array $scopes;
-
-    /**
-     * SimpleScopeResolver constructor.
-     *
-     * @param string $defaultScope
-     * @param array $scopes
-     */
-    public function __construct(string $defaultScope, array $scopes)
-    {
-        $this->defaultScope = $defaultScope;
-        $this->scopes = $scopes;
+    public function __construct(
+        protected string $defaultScope,
+        protected array $scopes
+    ) {
     }
 
 

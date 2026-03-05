@@ -20,7 +20,7 @@ class ConfigPass implements CompilerPassInterface
      *
      * @param ContainerBuilder $container
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(ConfigManagerInterface::class)) {
             return;

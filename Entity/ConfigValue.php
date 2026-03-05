@@ -5,15 +5,25 @@
  */
 
 namespace oliverde8\ComfyBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'comfy_config_value')]
 class ConfigValue
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\Column(type: Types::INTEGER)]
     private $id;
 
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private $path;
 
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private $scope;
 
+    #[ORM\Column(type: Types::TEXT)]
     private $value;
 
     public function getId(): ?int

@@ -7,29 +7,14 @@ use oliverde8\ComfyBundle\Model\ConfigInterface;
 use oliverde8\ComfyBundle\Resolver\FormTypeProviderInterface;
 use oliverde8\ComfyBundle\Resolver\ScopeResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
 
 class SimpleFormProvider implements FormTypeProviderInterface
 {
-    protected $scopeResolver;
-
-    /** @var string */
-    protected string $configType;
-
-    /** @var string */
-    protected string $formType;
-
-    /**
-     * SimpleFormProvider constructor.
-     *
-     * @param string $configType
-     * @param string $formType
-     */
-    public function __construct(ScopeResolverInterface $scopeResolver, string $configType, string $formType)
-    {
-        $this->scopeResolver = $scopeResolver;
-        $this->configType = $configType;
-        $this->formType = $formType;
+    public function __construct(
+        protected ScopeResolverInterface $scopeResolver,
+        protected string $configType,
+        protected string $formType
+    ) {
     }
 
     /**

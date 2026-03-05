@@ -18,7 +18,7 @@ services:
     class: oliverde8\ComfyBundle\Manager\ConfigDisplayManager
 
   oliverde8\ComfyBundle\Resolver\VisibleConfigsResolver:
-      class: oliverde8\ComfyBundle\Resolver\VisibleConfigsResolver
+    class: oliverde8\ComfyBundle\Resolver\VisibleConfigsResolver
 
 
   oliverde8\ComfyBundle\Command\:

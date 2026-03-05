@@ -44,7 +44,7 @@ class SetConfigsCommand extends Command
         $this->addOption(self::OPT_SCOPE, null, InputOption::VALUE_OPTIONAL);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $path = $input->getArgument(self::ARG_PATH);
         $value = $input->getArgument(self::ARG_VALUE);

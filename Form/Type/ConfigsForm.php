@@ -5,13 +5,10 @@ namespace oliverde8\ComfyBundle\Form\Type;
 use oliverde8\ComfyBundle\Manager\ConfigDisplayManager;
 use oliverde8\ComfyBundle\Model\ConfigInterface;
 use oliverde8\ComfyBundle\Model\Scope;
-use oliverde8\ComfyBundle\Resolver\FormTypeProviderInterface;
 use oliverde8\ComfyBundle\Security\ConfigVoter;
 use oliverde8\ComfyBundle\Security\ScopeVoter;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -23,34 +20,23 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ConfigsForm extends AbstractType
 {
-    protected ConfigDisplayManager $configDisplayManager;
-
-    private AuthorizationCheckerInterface $checker;
-
-    /** @var FormTypeProviderInterface[] */
-    protected array $formTypeProviders;
-
     protected $scope;
 
     /** @var ConfigInterface[] */
     protected $configs;
 
-    /**
-     * ConfigsForm constructor.
-     * @param ConfigDisplayManager $configDisplayManager
-     */
-    public function __construct(ConfigDisplayManager $configDisplayManager, AuthorizationCheckerInterface $checker, array $formTypeProviders)
-    {
-        $this->configDisplayManager = $configDisplayManager;
-        $this->checker = $checker;
-        $this->formTypeProviders = $formTypeProviders;
+    public function __construct(
+        protected ConfigDisplayManager $configDisplayManager,
+        protected AuthorizationCheckerInterface $checker,
+        protected array $formTypeProviders
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('save', SubmitType::class, ['label' => 'Save configs']);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             $data = $event->getData();
             $form = $event->getForm();
 
@@ -65,7 +51,7 @@ class ConfigsForm extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event): void {
             $data = $event->getData();
             $form = $event->getForm();
             $hasErrors = false;

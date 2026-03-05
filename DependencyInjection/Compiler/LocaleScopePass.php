@@ -6,8 +6,6 @@
 
 namespace oliverde8\ComfyBundle\DependencyInjection\Compiler;
 
-
-use oliverde8\ComfyBundle\Resolver\ScopeResolverInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Intl\Exception\MissingResourceException;
@@ -20,7 +18,7 @@ class LocaleScopePass implements CompilerPassInterface
     /**
      * You can modify the container here before it is dumped to PHP code.
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         // TODO Need to check if this is indeed the locale provider to use.
         $scopes = [
@@ -31,7 +29,7 @@ class LocaleScopePass implements CompilerPassInterface
             $leveledCode = str_replace("_", "/", $code);
             try {
                 $name = Locales::getName($code);
-            } catch (MissingResourceException $e) {
+            } catch (MissingResourceException) {
                 $name = $code;
             }
 

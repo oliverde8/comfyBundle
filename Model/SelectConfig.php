@@ -9,12 +9,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SelectConfig extends TextConfig
 {
-    /** @var string[] */
-    protected $options = [];
-
-    /** @var boolean */
-    protected $allowMultiple;
-
     public function __construct(
         ConfigManagerInterface $configManager,
         ValidatorInterface $validator,
@@ -24,13 +18,10 @@ class SelectConfig extends TextConfig
         int $scope = PHP_INT_MAX,
         ?string $defaultValue = null,
         bool $isHidden = false,
-        $options = [],
-        $allowMultiple = false
+        protected $options = [],
+        protected $allowMultiple = false
     ) {
         parent::__construct($configManager, $validator, $path, $name, $description, $scope, $defaultValue, $isHidden);
-
-        $this->options = $options;
-        $this->allowMultiple = $allowMultiple;
     }
 
     /**
