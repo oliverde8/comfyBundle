@@ -1,3 +1,8 @@
+# 1.4.0 
+
+- :star2: Support for symfony 7.0 has been added.
+- :star2: Support for symfony 8.0 has been added.
+
 # 1.3.0 
 
 - :star2: Support for symfony 6.0 has been added.
