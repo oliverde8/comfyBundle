@@ -71,10 +71,10 @@ We can also fetch the value for any other scope.
 
 ```php
 <?php
-$this->myConfig->get("default/en_GB");
+$this->myConfig->get("default/en/GB");
 ``` 
 
-So even if we are on a "french" page the config will be the `en_gb` one;
+So even if we are on a "french" page the config will be the `en/GB` one;
 
 > If no value is set for a certain scope then the value of the parent scope will be returned. in the example above it's
 the `en` and if none is defined for `en` then it's the `default`.
@@ -100,7 +100,7 @@ Once the value is validated we can set it.
 ```php
 <?php
 $this->myConfig->set($newValue);
-$this->myConfig->set($newValue, "default/en_GB");
+$this->myConfig->set($newValue, "default/en/GB");
 ```
 
 ### Available config types: 
