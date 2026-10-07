@@ -6,6 +6,10 @@
          colors="true"
          cacheDirectory=".phpunit.cache"
 >
+    <php>
+        <ini name="intl.default_locale" value="en"/>
+    </php>
+
     <testsuites>
         <testsuite name="comfy-bundle">
             <directory>Tests</directory>
