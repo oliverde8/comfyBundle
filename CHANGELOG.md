@@ -2,6 +2,14 @@
 
 - :star2: Support for symfony 7.0 has been added.
 - :star2: Support for symfony 8.0 has been added.
+- :star2: Added unit tests.
+- :collision: Support for php < 8.2 has been dropped.
+- :collision: `ConfigValue` entity is mapped with attributes, the yml doctrine mapping has been removed.
+- :wrench: Fix scopes not being initialized in `AbstractScopeResolver`.
+- :wrench: Fix locales with a region (`fr_FR`) not resolving to their scope (`default/fr/FR`).
+- :wrench: Fix current scope being cached across requests in `ConfigManager`.
+- :wrench: Fix child scopes keeping stale values after a parent value is set.
+- :wrench: Fix resetting a value on the root scope not restoring the default value.
 
 # 1.3.0 
 

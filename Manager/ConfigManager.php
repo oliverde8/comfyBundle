@@ -57,17 +57,9 @@ class ConfigManager implements ConfigManagerInterface
         $this->validatePath($configPath);
         $scope = $this->validateScope($scope);
 
-        if (!is_null($value)) {
-            $this->configValues[$scope][$configPath] = $value;
-            $this->configParentInheritance[$scope][$configPath] = false;
-        } else {
-            $this->scopeResolver->inherits($scope);
-            $previousScope = $this->scopeResolver->getScope($this->scopeResolver->inherits($scope));
-            $this->configValues[$scope][$configPath] = $this->configValues[$previousScope][$configPath];
-            $this->configParentInheritance[$scope][$configPath] = true;
-        }
-
         $this->storage->save($configPath, $scope, $value);
+        $this->unloadScope($scope);
+
         return $this;
     }
 
@@ -112,16 +104,14 @@ class ConfigManager implements ConfigManagerInterface
 
     protected function validateScope($scope)
     {
-        if (isset($this->resolvedScopes[$scope])) {
-            return $this->resolvedScopes[$scope];
-        }
-
-        if (!$this->scopeResolver->validateScope($scope)) {
-            throw new UnknownScopeException("Scope '$scope' was not found!");
-        }
-
         $scopeValue = $this->scopeResolver->getScope($scope);
-        $this->resolvedScopes[$scope] = $scopeValue;
+
+        if (!isset($this->resolvedScopes[$scopeValue])) {
+            if (!$this->scopeResolver->validateScope($scopeValue)) {
+                throw new UnknownScopeException("Scope '$scopeValue' was not found!");
+            }
+            $this->resolvedScopes[$scopeValue] = true;
+        }
 
         if (!isset($this->configValues[$scopeValue])) {
             // TODO first check in cache.
@@ -129,6 +119,15 @@ class ConfigManager implements ConfigManagerInterface
         }
 
         return $scopeValue;
+    }
+
+    protected function unloadScope(string $scope): void
+    {
+        foreach (array_keys($this->configValues ?? []) as $loadedScope) {
+            if ($loadedScope === $scope || str_starts_with((string) $loadedScope, $scope . '/')) {
+                unset($this->configValues[$loadedScope], $this->configParentInheritance[$loadedScope]);
+            }
+        }
     }
 
     protected function validatePath($path)

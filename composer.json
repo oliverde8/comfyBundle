@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "symfony/framework-bundle": "^5.0|^6.0|^7.0|^8.0",
     "symfony/form": "*",
     "oliverde8/associative-array-simplified": "^1.0"
@@ -18,9 +18,20 @@
   "autoload": {
     "psr-4": {
       "oliverde8\\ComfyBundle\\": "."
-    }
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
   },
   "require-dev": {
-    "rector/rector": "^2.3"
+    "rector/rector": "^2.3",
+    "phpunit/phpunit": "^11.0",
+    "symfony/validator": "^6.4|^7.0|^8.0",
+    "symfony/intl": "^6.4|^7.0|^8.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "oliverde8\\ComfyBundle\\Tests\\": "Tests/"
+    }
   }
 }
