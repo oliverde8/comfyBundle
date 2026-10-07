@@ -30,7 +30,7 @@ class VisibleConfigsResolver
     {
         $allowedConfigs = new AssociativeArray();
 
-        $allConfigs = $this->configManager->getAllConfigs();
+        $allConfigs = $this->configManager->getAllConfigs()->getArray();
         array_walk_recursive($allConfigs, function ($config, $key) use($allowedConfigs, $action): void {
             if (is_object($config)) {
                 if ($config->isHidden()) {
