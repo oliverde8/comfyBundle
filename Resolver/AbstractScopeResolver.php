@@ -78,7 +78,7 @@ abstract class AbstractScopeResolver implements ScopeResolverInterface
      */
     protected function getScopes(): array
     {
-        if (is_null($this->scopes)) {
+        if (empty($this->scopes)) {
             $this->scopes = $this->initScopes();
         }
 
