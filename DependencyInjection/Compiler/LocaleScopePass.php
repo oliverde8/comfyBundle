@@ -22,18 +22,29 @@ class LocaleScopePass implements CompilerPassInterface
     {
         // TODO Need to check if this is indeed the locale provider to use.
         $scopes = [
-            "default" => "Default scope label",
+            "default" => "Default",
         ];
 
-        foreach (Locales::getLocales() as $code) {
-            $leveledCode = str_replace("_", "/", $code);
-            try {
-                $name = Locales::getName($code);
-            } catch (MissingResourceException) {
-                $name = $code;
-            }
+        $locales = $container->hasParameter('kernel.enabled_locales') ? $container->getParameter('kernel.enabled_locales') : [];
+        if (empty($locales)) {
+            $locales = Locales::getLocales();
+        }
 
-            $scopes["default/$leveledCode"] = $name;
+        foreach ($locales as $locale) {
+            $parts = explode("_", $locale);
+            for ($i = 1; $i <= count($parts); $i++) {
+                $code = implode("_", array_slice($parts, 0, $i));
+                $scopeKey = "default/" . str_replace("_", "/", $code);
+                if (isset($scopes[$scopeKey])) {
+                    continue;
+                }
+
+                try {
+                    $scopes[$scopeKey] = Locales::getName($code);
+                } catch (MissingResourceException) {
+                    $scopes[$scopeKey] = $code;
+                }
+            }
         }
 
         $definition = $container->getDefinition('oliverde8.comfy_bundle.scope_resolver.locales');
