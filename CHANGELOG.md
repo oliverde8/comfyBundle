@@ -3,6 +3,7 @@
 - :star2: Support for symfony 7.0 has been added.
 - :star2: Support for symfony 8.0 has been added.
 - :star2: Added unit tests.
+- :star2: Locale scopes are built from `framework.enabled_locales` when set, falls back to all locales.
 - :collision: Support for php < 8.2 has been dropped.
 - :collision: `ConfigValue` entity is mapped with attributes, the yml doctrine mapping has been removed.
 - :wrench: Fix scopes not being initialized in `AbstractScopeResolver`.
@@ -10,6 +11,7 @@
 - :wrench: Fix current scope being cached across requests in `ConfigManager`.
 - :wrench: Fix child scopes keeping stale values after a parent value is set.
 - :wrench: Fix resetting a value on the root scope not restoring the default value.
+- :wrench: Fix `VisibleConfigsResolver::getAllAllowedConfigs` walking the `AssociativeArray` object instead of its data.
 
 # 1.3.0 
 
