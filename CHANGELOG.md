@@ -4,7 +4,9 @@
 - :star2: Support for symfony 8.0 has been added.
 - :star2: Added unit tests.
 - :star2: Locale scopes are built from `framework.enabled_locales` when set, falls back to all locales.
+- :star2: Root scope label of the locale scope resolver is now `Default` instead of `Default scope label`.
 - :collision: Support for php < 8.2 has been dropped.
+- :collision: `symfony/intl` and `symfony/security-core` (`^6.4|^7.0|^8.0`) are now required dependencies.
 - :collision: `ConfigValue` entity is mapped with attributes, the yml doctrine mapping has been removed.
 - :wrench: Fix scopes not being initialized in `AbstractScopeResolver`.
 - :wrench: Fix locales with a region (`fr_FR`) not resolving to their scope (`default/fr/FR`).
